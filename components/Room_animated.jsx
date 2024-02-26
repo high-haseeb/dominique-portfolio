@@ -20,22 +20,32 @@ export function Model(props) {
 
   const tl = useRef();
   const scroll = useScroll();
-  useFrame(() => {
+
+  useFrame(({ mouse }) => {
     tl.current.seek(scroll.offset * tl.current.duration());
+    ref.current.rotation.y = (mouse.x * Math.PI) / 20;
   });
+
   useLayoutEffect(() => {
     tl.current = gsap.timeline();
-    tl.current
-
-      .fromTo(ref.current.scale,{x:1, y:1, z: 1}, { duration: 3, x: 1, y: 1, z: 1 }, 0)
-      .fromTo(ref.current.position, { x: 0, y: 0, z: 0 }, { duration: 3, x: 10 }, 0)
-      .fromTo(ref.current.position,{x:10, y:0, z: 0}, { duration: 3, x: -2, y: -4, z: 2 }, 3)
-      .fromTo(ref.current.scale,{x:1, y:1, z: 1}, { duration: 3, x: 3, y: 3, z: 3 }, 3)
-      .fromTo(ref.current.position,{x:-2, y:-4, z: 2}, { duration: 3, x: 0, y: -13, z: 2 }, 6)
-      .fromTo(ref.current.scale,{x:3, y:3, z: 3}, { duration: 3, x: 4, y: 4, z: 4 }, 6);
-  });
-  useFrame(({ mouse }) => {
-    ref.current.rotation.y = (mouse.x * Math.PI) / 20;
+    const width = window.innerWidth;
+    if (width < 768) {
+      tl.current
+        .fromTo(ref.current.scale, { x: 0.5, y: 0.5, z: 0.5 }, { duration: 3, x: 0.5, y: 0.5, z: 0.5 }, 0)
+        .fromTo(ref.current.position, { x: 0, y: 0, z: 0 }, { duration: 3, x: 0, y: 2, z: 0 }, 0)
+        .fromTo(ref.current.position, { x: 30, y: 0, z: 0 }, { duration: 3, x: -2, y: -4, z: 2 }, 3)
+        .fromTo(ref.current.scale, { x: 1, y: 1, z: 1 }, { duration: 3, x: 3, y: 3, z: 3 }, 3)
+        .fromTo(ref.current.position, { x: -19, y: -7, z: 2 }, { duration: 3, x: 0, y: -13, z: 2 }, 6)
+        .fromTo(ref.current.scale, { x: 3, y: 3, z: 3 }, { duration: 3, x: 4, y: 4, z: 4 }, 6);
+    } else {
+      tl.current
+        .fromTo(ref.current.scale, { x: 1, y: 1, z: 1 }, { duration: 3, x: 1, y: 1, z: 1 }, 0)
+        .fromTo(ref.current.position, { x: 0, y: 0, z: 0 }, { duration: 3, x: 10 }, 0)
+        .fromTo(ref.current.position, { x: 10, y: 0, z: 0 }, { duration: 3, x: -2, y: -4, z: 2 }, 3)
+        .fromTo(ref.current.scale, { x: 1, y: 1, z: 1 }, { duration: 3, x: 3, y: 3, z: 3 }, 3)
+        .fromTo(ref.current.position, { x: -2, y: -4, z: 2 }, { duration: 3, x: 0, y: -13, z: 2 }, 6)
+        .fromTo(ref.current.scale, { x: 3, y: 3, z: 3 }, { duration: 3, x: 4, y: 4, z: 4 }, 6);
+    }
   });
 
   return (
@@ -96,7 +106,7 @@ export function Model(props) {
           <mesh name="Cube023_6" geometry={nodes.Cube023_6.geometry} material={materials["led.001"]} />
           <mesh name="Cube023_7" geometry={nodes.Cube023_7.geometry} material={materials.tastiera} />
           <mesh name="Cube023_8" geometry={nodes.Cube023_8.geometry} material={materials["Material.005"]} />
-          <mesh name="Cube023_9" geometry={nodes.Cube023_9.geometry} material={materials.Screen} >
+          <mesh name="Cube023_9" geometry={nodes.Cube023_9.geometry} material={materials.Screen}>
             <meshBasicMaterial map={video} toneMapped={false} />
           </mesh>
         </group>
