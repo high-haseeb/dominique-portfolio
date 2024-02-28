@@ -82,7 +82,7 @@ const Experience = () => {
           shadow-camera-far={20}
         />
         <ambientLight intensity={ambientIntensity} color={ambientColor} />
-        <ScrollControls pages={13} damping={0.25} maxSpeed={0.3}>
+        <ScrollControls pages={19} damping={0.25} maxSpeed={0.3}>
           <Overlay />
           <Model />
         </ScrollControls>
